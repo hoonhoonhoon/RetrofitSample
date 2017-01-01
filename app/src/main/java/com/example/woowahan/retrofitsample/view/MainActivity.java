@@ -1,33 +1,31 @@
 package com.example.woowahan.retrofitsample.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.example.woowahan.retrofitsample.network.GitHubService;
-import com.example.woowahan.retrofitsample.presenter.MainPresenter;
-import com.example.woowahan.retrofitsample.presenter.MainPresenterImpl;
 import com.example.woowahan.retrofitsample.R;
 import com.example.woowahan.retrofitsample.network.RetrofitCreator;
-import com.example.woowahan.retrofitsample.domain.User;
+import com.example.woowahan.retrofitsample.network.StoreService;
+import com.example.woowahan.retrofitsample.network.model.Blog;
+import com.example.woowahan.retrofitsample.presenter.MainPresenter;
+import com.example.woowahan.retrofitsample.presenter.MainPresenterImpl;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements MainPresenter.View {
 
-
-    @BindView(R.id.username)
-    EditText username;
-    @BindView(R.id.userinfo)
-    TextView userinfo;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
 
 
     private MainPresenter mainPresenter;
+    private AppListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,35 +34,20 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
         ButterKnife.bind(this);
 
-        mainPresenter = new MainPresenterImpl(this, new GitHubService(RetrofitCreator.create()));
+        mainPresenter = new MainPresenterImpl(this, new StoreService(RetrofitCreator.create()));
 
+        adapter = new AppListAdapter();
 
-    }
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
+        mainPresenter.loadRealTimeRank();
 
-    @OnClick(R.id.send)
-    void onSendClick(Button button) {
-        mainPresenter.gethUser(username.getText().toString());
-    }
-
-    @OnClick(R.id.next)
-    void onNextClick(Button button) {
-        if (user == null) return;
-        moveToNext();
-    }
-
-
-    User user;
-
-    @Override
-    public void bindUserData(User user) {
-        this.user = user;
-        userinfo.setText(user.toString());
     }
 
     @Override
-    public void moveToNext() {
-        startActivity(LoginActivity.getIntent(this, user.getToken()));
+    public void bindData(List<Blog> blogs) {
+        adapter.setData(blogs);
     }
 
     @Override

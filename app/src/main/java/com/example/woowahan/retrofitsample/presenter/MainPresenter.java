@@ -1,6 +1,9 @@
 package com.example.woowahan.retrofitsample.presenter;
 
-import com.example.woowahan.retrofitsample.domain.User;
+
+import com.example.woowahan.retrofitsample.network.model.Blog;
+
+import java.util.List;
 
 /**
  * Created by woowahan on 2016. 12. 23..
@@ -9,16 +12,12 @@ import com.example.woowahan.retrofitsample.domain.User;
 public interface MainPresenter {
 
 
-    void gethUser(String username);
-
+    void loadRealTimeRank();
 
 
     interface View {
 
-        void bindUserData(User user);
-
-        void moveToNext();
-
+        void bindData(List<Blog> blogs);
         void showErrorView();
     }
 }
