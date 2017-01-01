@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.example.woowahan.retrofitsample.R;
 import com.example.woowahan.retrofitsample.network.RetrofitCreator;
-import com.example.woowahan.retrofitsample.network.StoreService;
+import com.example.woowahan.retrofitsample.network.BlogService;
 import com.example.woowahan.retrofitsample.network.model.Blog;
 import com.example.woowahan.retrofitsample.presenter.MainPresenter;
 import com.example.woowahan.retrofitsample.presenter.MainPresenterImpl;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
 
     private MainPresenter mainPresenter;
-    private AppListAdapter adapter;
+    private BlogListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
         ButterKnife.bind(this);
 
-        adapter = new AppListAdapter();
+        adapter = new BlogListAdapter();
 
-        mainPresenter = new MainPresenterImpl(this, new StoreService(RetrofitCreator.create()), adapter);
+        mainPresenter = new MainPresenterImpl(this, new BlogService(RetrofitCreator.create()), adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);

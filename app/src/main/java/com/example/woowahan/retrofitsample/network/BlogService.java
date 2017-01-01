@@ -12,13 +12,13 @@ import retrofit2.http.Query;
  * Created by woowahan on 2016. 12. 23..
  */
 
-public class StoreService {
+public class BlogService {
 
     Retrofit retrofit;
     Api api;
 
 
-    public StoreService(Retrofit retrofit) {
+    public BlogService(Retrofit retrofit) {
         this.retrofit = retrofit;
         this.api = getApiservice();
     }

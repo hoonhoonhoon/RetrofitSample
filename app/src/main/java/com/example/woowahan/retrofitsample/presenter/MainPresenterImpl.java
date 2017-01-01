@@ -1,7 +1,7 @@
 package com.example.woowahan.retrofitsample.presenter;
 
 import com.example.woowahan.retrofitsample.model.DataModel;
-import com.example.woowahan.retrofitsample.network.StoreService;
+import com.example.woowahan.retrofitsample.network.BlogService;
 import com.example.woowahan.retrofitsample.network.model.ApiModel;
 import com.example.woowahan.retrofitsample.network.model.Blog;
 import com.example.woowahan.retrofitsample.util.LogUtils;
@@ -19,20 +19,20 @@ public class MainPresenterImpl implements MainPresenter {
     private static final String TAG = MainPresenterImpl.class.getSimpleName();
 
     MainPresenter.View view;
-    StoreService storeService;
+    BlogService blogService;
     DataModel<Blog> blogDataModel;
 
     int page = 0;
 
-    public MainPresenterImpl(View view, StoreService storeService, DataModel<Blog> blogDataModel) {
+    public MainPresenterImpl(View view, BlogService blogService, DataModel<Blog> blogDataModel) {
         this.view = view;
-        this.storeService = storeService;
+        this.blogService = blogService;
         this.blogDataModel = blogDataModel;
     }
 
     @Override
     public void loadBlogs() {
-        storeService.getBlogs("게임보이")
+        blogService.getBlogs("게임보이")
                 .enqueue(new Callback<ApiModel>() {
                     @Override
                     public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {

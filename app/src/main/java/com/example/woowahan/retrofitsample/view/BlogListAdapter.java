@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.woowahan.retrofitsample.R;
@@ -21,19 +20,19 @@ import butterknife.ButterKnife;
  * Created by jihoon on 2016. 12. 31..
  */
 
-public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppViewHolder> implements DataModel<Blog> {
+public class BlogListAdapter extends RecyclerView.Adapter<BlogListAdapter.BlogViewHolder> implements DataModel<Blog> {
 
 
     List<Blog> list = new ArrayList<>();
 
     @Override
-    public AppViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BlogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_app, parent, false);
-        return new AppViewHolder(view);
+        return new BlogViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(AppViewHolder holder, int position) {
+    public void onBindViewHolder(BlogViewHolder holder, int position) {
         holder.bindData(list.get(position));
     }
 
@@ -91,16 +90,14 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppViewH
         notifyItemRemoved(position);
     }
 
-    class AppViewHolder extends RecyclerView.ViewHolder {
+    class BlogViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.name)
         TextView name;
-        @BindView(R.id.icon)
-        ImageView icon;
         @BindView(R.id.description)
         TextView description;
 
-        public AppViewHolder(View itemView) {
+        public BlogViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
