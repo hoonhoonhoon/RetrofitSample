@@ -1,7 +1,9 @@
 package com.example.woowahan.retrofitsample.presenter;
 
+import com.example.woowahan.retrofitsample.model.DataModel;
 import com.example.woowahan.retrofitsample.network.StoreService;
 import com.example.woowahan.retrofitsample.network.model.ApiModel;
+import com.example.woowahan.retrofitsample.network.model.Blog;
 import com.example.woowahan.retrofitsample.util.LogUtils;
 
 import retrofit2.Call;
@@ -18,23 +20,25 @@ public class MainPresenterImpl implements MainPresenter {
 
     MainPresenter.View view;
     StoreService storeService;
+    DataModel<Blog> blogDataModel;
 
     int page = 0;
 
-    public MainPresenterImpl(View view, StoreService storeService) {
+    public MainPresenterImpl(View view, StoreService storeService, DataModel<Blog> blogDataModel) {
         this.view = view;
         this.storeService = storeService;
+        this.blogDataModel = blogDataModel;
     }
 
     @Override
-    public void loadRealTimeRank() {
+    public void loadBlogs() {
         storeService.getBlogs("게임보이")
                 .enqueue(new Callback<ApiModel>() {
                     @Override
                     public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {
                         if (response.isSuccessful()) {
                             page ++;
-                            view.bindData(response.body().getItems());
+                            blogDataModel.set(response.body().getItems());
                         }
                     }
 

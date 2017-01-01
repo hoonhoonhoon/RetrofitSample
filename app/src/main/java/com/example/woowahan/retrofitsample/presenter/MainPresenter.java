@@ -12,7 +12,7 @@ import java.util.List;
 public interface MainPresenter {
 
 
-    void loadRealTimeRank();
+    void loadBlogs();
 
 
     interface View {

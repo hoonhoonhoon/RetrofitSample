@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.woowahan.retrofitsample.R;
+import com.example.woowahan.retrofitsample.model.DataModel;
 import com.example.woowahan.retrofitsample.network.model.Blog;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by jihoon on 2016. 12. 31..
  */
 
-public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppViewHolder> {
+public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppViewHolder> implements DataModel<Blog> {
 
 
     List<Blog> list = new ArrayList<>();
@@ -41,9 +42,53 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppViewH
         return list.size();
     }
 
-    public void setData(List<Blog> list) {
-        this.list = list;
+    @Override
+    public void set(List<Blog> datas) {
+        list.clear();
+        list.addAll(datas);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Blog get(int position) {
+        if (list.size() > 0)
+            return list.get(position);
+        else
+            return null;
+    }
+
+    @Override
+    public List<Blog> getAll() {
+        return list;
+    }
+
+    @Override
+    public void add(Blog item) {
+        list.add(item);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void update(Blog item) {
+        //
+    }
+
+    @Override
+    public void update(int position, Blog item) {
+        list.set(position, item);
+        notifyItemChanged(position);
+    }
+
+    @Override
+    public void delete(Blog item) {
+        list.remove(item);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void delete(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
     }
 
     class AppViewHolder extends RecyclerView.ViewHolder {

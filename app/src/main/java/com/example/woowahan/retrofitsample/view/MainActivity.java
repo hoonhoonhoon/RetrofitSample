@@ -34,20 +34,20 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
         ButterKnife.bind(this);
 
-        mainPresenter = new MainPresenterImpl(this, new StoreService(RetrofitCreator.create()));
-
         adapter = new AppListAdapter();
+
+        mainPresenter = new MainPresenterImpl(this, new StoreService(RetrofitCreator.create()), adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        mainPresenter.loadRealTimeRank();
+        mainPresenter.loadBlogs();
 
     }
 
     @Override
     public void bindData(List<Blog> blogs) {
-        adapter.setData(blogs);
+        adapter.set(blogs);
     }
 
     @Override
