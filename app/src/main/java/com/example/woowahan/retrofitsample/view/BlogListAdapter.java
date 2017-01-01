@@ -27,7 +27,7 @@ public class BlogListAdapter extends RecyclerView.Adapter<BlogListAdapter.BlogVi
 
     @Override
     public BlogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_app, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_blog, parent, false);
         return new BlogViewHolder(view);
     }
 
@@ -92,8 +92,8 @@ public class BlogListAdapter extends RecyclerView.Adapter<BlogListAdapter.BlogVi
 
     class BlogViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.name)
-        TextView name;
+        @BindView(R.id.title)
+        TextView title;
         @BindView(R.id.description)
         TextView description;
 
@@ -103,7 +103,7 @@ public class BlogListAdapter extends RecyclerView.Adapter<BlogListAdapter.BlogVi
         }
 
         public void bindData(Blog blog) {
-            name.setText(blog.getTitle());
+            title.setText(blog.getTitle());
             description.setText(blog.getDescription());
         }
     }

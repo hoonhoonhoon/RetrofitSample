@@ -7,13 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.woowahan.retrofitsample.R;
-import com.example.woowahan.retrofitsample.network.RetrofitCreator;
 import com.example.woowahan.retrofitsample.network.BlogService;
-import com.example.woowahan.retrofitsample.network.model.Blog;
+import com.example.woowahan.retrofitsample.network.RetrofitCreator;
 import com.example.woowahan.retrofitsample.presenter.MainPresenter;
 import com.example.woowahan.retrofitsample.presenter.MainPresenterImpl;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,11 +40,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
         mainPresenter.loadBlogs();
 
-    }
-
-    @Override
-    public void bindData(List<Blog> blogs) {
-        adapter.set(blogs);
     }
 
     @Override

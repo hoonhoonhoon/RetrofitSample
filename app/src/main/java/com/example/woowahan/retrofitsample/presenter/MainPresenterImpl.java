@@ -46,6 +46,7 @@ public class MainPresenterImpl implements MainPresenter {
                     public void onFailure(Call<ApiModel> call, Throwable t) {
                         LogUtils.error(TAG, t.toString());
                         LogUtils.error(TAG, t.getMessage());
+                        view.showErrorView();
                     }
                 });
     }
